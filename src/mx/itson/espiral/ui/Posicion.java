@@ -98,16 +98,16 @@ public class Posicion extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(16, 16, 16)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(119, 119, 119)
+                .addGap(73, 73, 73)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,19 +131,26 @@ public class Posicion extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
          cargarTable();
-    }
+         tblPuestos.removeColumn(tblPuestos.getColumn(0));
          
+         
+         
+    }
+        
          
           private void cargarTable(){
        List<Formula> formulas = Formula.obtenerTodos();
        
        DefaultTableModel modelo = (DefaultTableModel)tblPuestos.getModel();
                
+       
+       
+       
        modelo.setRowCount(0);
        
        for(Formula a : formulas){
            modelo.addRow(new Object[] {
-              a.getPuesto(),
+               a.getPuesto(),
                a.getPiloto(),
                a.getEquipo(),
                a.getLlantas(),
