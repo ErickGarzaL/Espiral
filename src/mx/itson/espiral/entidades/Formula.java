@@ -8,6 +8,7 @@ import mx.itson.espiral.persistencia.Conexion;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 
 public class Formula {
     
@@ -15,8 +16,8 @@ public class Formula {
     private String piloto;
     private String equipo;
     private String llantas;
-    private double tiempo ;
-    private double puntos;
+    private String tiempo ;
+    private String puntos;
     
     public static List<Formula> obtenerTodos() {
         List<Formula> formulas = new ArrayList<>();
@@ -33,8 +34,8 @@ public class Formula {
                formula.setPiloto(resultSet.getString(2));
                formula.setEquipo(resultSet.getString(3));
                formula.setLlantas(resultSet.getString(4));
-               formula.setTiempo(resultSet.getDouble(5));
-               formula.setPuntos(resultSet.getDouble(6));
+               formula.setTiempo(resultSet.getString(5));
+               formula.setPuntos(resultSet.getString(6));
                
                formulas.add(formula);
                
@@ -62,8 +63,8 @@ public class Formula {
                formula.setPiloto(resultSet.getString(2));
                formula.setEquipo(resultSet.getString(3));
                formula.setLlantas(resultSet.getString(4));
-               formula.setTiempo(resultSet.getDouble(5));
-               formula.setPuntos(resultSet.getDouble(6));
+               formula.setTiempo(resultSet.getString(5));
+               formula.setPuntos(resultSet.getString(6));
           
              }
         } catch (Exception ex){
@@ -75,7 +76,7 @@ public class Formula {
     }
     
     
-     public static boolean guardar(String piloto, String equipo, String llantas, double tiempo, double puntos){
+     public static boolean guardar( String piloto, String equipo, String llantas, String tiempo, String puntos){
         boolean resultado = false;
         try {
             Connection conexion = Conexion.obtener();
@@ -84,8 +85,9 @@ public class Formula {
             statement.setString(1, piloto);
             statement.setString(2, equipo);
             statement.setString(3, llantas);
-            statement.setDouble(4, tiempo);
-            statement.setDouble(5, puntos);
+            statement.setString(4, tiempo);
+            statement.setString(5, puntos);
+              
             statement.execute();
             resultado = statement.getUpdateCount() == 1;
             conexion.close();
@@ -94,16 +96,30 @@ public class Formula {
         }
         return resultado;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+     
+     
+    public static  boolean editar (int puesto, String piloto, String equipo, String llantas, String tiempo, String puntos){
+        boolean resultado = false;
+        try {
+            Connection conexion = Conexion.obtener();
+            String consulta = "UPDATE formula SET piloto = ?, equipo = ?, llantas =?, tiempo = ?, puntos = ? WHERE puesto = ? ";
+             PreparedStatement statement = conexion.prepareStatement(consulta);
+            statement.setString(1, piloto);
+            statement.setString(2, equipo);
+            statement.setString(3, llantas);
+           statement.setString(4, tiempo);
+            statement.setString(5, puntos);
+             statement.setInt(6, puesto);
+            statement.execute();
+            resultado = statement.getUpdateCount() == 1 ;
+                        conexion.close();
+                    
+            
+             } catch(Exception ex){
+            System.err.println("Ocurrió un error: " + ex.getMessage());
+        }
+        return resultado;
+        }
     
     
     
@@ -144,22 +160,23 @@ public class Formula {
         this.llantas = llantas;
     }
 
-    public double getTiempo() {
+    public String getTiempo() {
         return tiempo;
     }
 
-    public void setTiempo(double tiempo) {
+    public void setTiempo(String tiempo) {
         this.tiempo = tiempo;
     }
 
-    public double getPuntos() {
+    public String getPuntos() {
         return puntos;
     }
 
-    public void setPuntos(double puntos) {
+    public void setPuntos(String puntos) {
         this.puntos = puntos;
     }
-    
+
+  
     
     
     

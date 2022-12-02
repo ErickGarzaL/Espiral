@@ -5,9 +5,13 @@
  */
 package mx.itson.espiral.ui;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.itson.espiral.entidades.Formula;
+import mx.itson.espiral.persistencia.Conexion;
 
 /**
  *
@@ -36,7 +40,8 @@ public class Posicion extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnAgregar = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        btnEditar = new javax.swing.JMenuItem();
+        btnEliminar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -68,13 +73,21 @@ public class Posicion extends javax.swing.JFrame {
         });
         jMenu1.add(btnAgregar);
 
-        jMenuItem1.setText("Editar");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(btnEditar);
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnEliminar);
 
         jMenuBar1.add(jMenu1);
 
@@ -100,12 +113,20 @@ public class Posicion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int renglon =  tblPuestos.getSelectedRow();
+     int  puestoCorredor= Integer.parseInt(tblPuestos.getModel().getValueAt(renglon, 0).toString());
+        
+        PosicionForm posicionFormulario = new PosicionForm(this, true , puestoCorredor);
+        posicionFormulario.setVisible(true);
+           cargarTable();
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        PosicionForm posicionFormulario = new PosicionForm(this, true, 0);
+        posicionFormulario.setVisible(true);
         
+       cargarTable();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -132,10 +153,20 @@ public class Posicion extends javax.swing.JFrame {
            
            });
        }
+       
+       
           
 
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+     eliminar(WIDTH);
+          
+       cargarTable();
+        
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,12 +202,51 @@ public class Posicion extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+    void eliminar (int puesto){
+        boolean resultado = false;
+         int renglon =  tblPuestos.getSelectedRow();
+         
+         try {
+             
+             
+             if(renglon <0){
+                 JOptionPane.showMessageDialog(null, "Cliente no seleccionado");
+             }else {
+                 
+                  Connection conexion = Conexion.obtener();
+                 String consulta = "DELETE FROM formula WHERE puesto = ? ";
+            PreparedStatement statement = conexion.prepareStatement(consulta);
+             statement.setInt(1, puesto);
+            statement.execute();
+            resultado = statement.getUpdateCount() == 1 ;
+            
+            JOptionPane.showMessageDialog(null, "Seguro que quieres borrarlo?");
+                        conexion.close();
+                 
+             }
+             
+             } catch(Exception ex){
+            System.err.println("Ocurrió un error: " + ex.getMessage());
+        }
+       
+        
+         
+    }
+    
+    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAgregar;
+    private javax.swing.JMenuItem btnEditar;
+    private javax.swing.JMenuItem btnEliminar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPuestos;
     // End of variables declaration//GEN-END:variables
