@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.itson.espiral.entidades.Formula;
-import mx.itson.espiral.persistencia.Conexion;
+
 
 /**
  *
@@ -131,8 +131,7 @@ public class Posicion extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
          cargarTable();
-         tblPuestos.removeColumn(tblPuestos.getColumn(0));
-         
+        
          
          
     }
@@ -168,7 +167,11 @@ public class Posicion extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-     eliminar(WIDTH);
+    Formula formula = new Formula ();
+   int renglon = tblPuestos.getSelectedRow();
+   int carrera = Integer.parseInt( tblPuestos.getModel().getValueAt(renglon, 0).toString());
+   formula.eliminar(carrera);
+     
           
        cargarTable();
         
@@ -210,38 +213,13 @@ public class Posicion extends javax.swing.JFrame {
         });
     }
     
+      
     
     
-    void eliminar (int puesto){
-        boolean resultado = false;
-         int renglon =  tblPuestos.getSelectedRow();
-         
-         try {
-             
-             
-             if(renglon <0){
-                 JOptionPane.showMessageDialog(null, "Cliente no seleccionado");
-             }else {
-                 
-                  Connection conexion = Conexion.obtener();
-                 String consulta = "DELETE FROM formula WHERE puesto = ? ";
-            PreparedStatement statement = conexion.prepareStatement(consulta);
-             statement.setInt(1, puesto);
-            statement.execute();
-            resultado = statement.getUpdateCount() == 1 ;
-            
-            JOptionPane.showMessageDialog(null, "Seguro que quieres borrarlo?");
-                        conexion.close();
-                 
-             }
-             
-             } catch(Exception ex){
-            System.err.println("Ocurrió un error: " + ex.getMessage());
-        }
        
         
          
-    }
+    
     
     
     

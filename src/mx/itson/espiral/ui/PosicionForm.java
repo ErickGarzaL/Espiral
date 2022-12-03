@@ -27,7 +27,7 @@ public class PosicionForm extends javax.swing.JDialog {
             txtEquipo.setText(formula.getEquipo());
             txtLlantas.setText(formula.getLlantas());
             txtTiempo1.setText(formula.getTiempo());
-            txtPuntos.setText(formula.getPuntos());
+            txtPuntos.setText(formula.getPuntos()+"");
             
                     }
         
@@ -134,13 +134,15 @@ public class PosicionForm extends javax.swing.JDialog {
         String  equipo = txtPiloto.getText();
         String llantas = txtLlantas.getText();
         String tiempo = txtTiempo1.getText();
-        String puntos = txtPuntos.getText();
+        int punto = Integer.parseInt(txtPuntos.getText());
                 
 
         boolean resultado = this.puesto == 0 ?
                 
-                Formula.guardar(piloto, equipo, llantas, tiempo, puntos):
-                Formula.editar(this.puesto, piloto, equipo, llantas, tiempo, puntos);
+                Formula.guardar(piloto, equipo, llantas, tiempo, punto):
+                Formula.editar(this.puesto, piloto, equipo, llantas, tiempo, punto);
+      
+        
      
 
         if(resultado){

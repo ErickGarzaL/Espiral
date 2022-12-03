@@ -17,10 +17,12 @@ public class Formula {
     private String equipo;
     private String llantas;
     private String tiempo ;
-    private String puntos;
-    
+     private int puntos ;
+
+   
     public static List<Formula> obtenerTodos() {
         List<Formula> formulas = new ArrayList<>();
+       
         try{
            
            Connection conexion = Conexion.obtener();
@@ -35,7 +37,7 @@ public class Formula {
                formula.setEquipo(resultSet.getString(3));
                formula.setLlantas(resultSet.getString(4));
                formula.setTiempo(resultSet.getString(5));
-               formula.setPuntos(resultSet.getString(6));
+               formula.setPuntos(resultSet.getInt(6));
                
                formulas.add(formula);
                
@@ -64,7 +66,7 @@ public class Formula {
                formula.setEquipo(resultSet.getString(3));
                formula.setLlantas(resultSet.getString(4));
                formula.setTiempo(resultSet.getString(5));
-               formula.setPuntos(resultSet.getString(6));
+               formula.setPuntos(resultSet.getInt(6));
           
              }
         } catch (Exception ex){
@@ -76,7 +78,7 @@ public class Formula {
     }
     
     
-     public static boolean guardar( String piloto, String equipo, String llantas, String tiempo, String puntos){
+     public static boolean guardar( String piloto, String equipo, String llantas, String tiempo, int puntos){
         boolean resultado = false;
         try {
             Connection conexion = Conexion.obtener();
@@ -86,7 +88,7 @@ public class Formula {
             statement.setString(2, equipo);
             statement.setString(3, llantas);
             statement.setString(4, tiempo);
-            statement.setString(5, puntos);
+            statement.setInt(5, puntos);
               
             statement.execute();
             resultado = statement.getUpdateCount() == 1;
@@ -98,17 +100,17 @@ public class Formula {
     }
      
      
-    public static  boolean editar (int puesto, String piloto, String equipo, String llantas, String tiempo, String puntos){
+    public static  boolean editar (int puesto, String piloto, String equipo, String llantas, String tiempo, int puntos){
         boolean resultado = false;
         try {
             Connection conexion = Conexion.obtener();
-            String consulta = "UPDATE formula SET piloto = ?, equipo = ?, llantas =?, tiempo = ?, puntos = ? WHERE puesto = ? ";
+            String consulta = "UPDATE fomula SET piloto = ?, equipo = ?, llantas =?, tiempo = ?, puntos = ? WHERE puesto = ? ";
              PreparedStatement statement = conexion.prepareStatement(consulta);
             statement.setString(1, piloto);
             statement.setString(2, equipo);
             statement.setString(3, llantas);
-           statement.setString(4, tiempo);
-            statement.setString(5, puntos);
+            statement.setString(4, tiempo);
+             statement.setInt(5, puntos);
              statement.setInt(6, puesto);
             statement.execute();
             resultado = statement.getUpdateCount() == 1 ;
@@ -121,17 +123,43 @@ public class Formula {
         return resultado;
         }
     
-    
+   public static boolean eliminar (int puesto){
+        boolean resultado = false;
+        
+         int renglon =0;
+         try {
+             
+             
+             if(renglon <0){
+                 JOptionPane.showMessageDialog(null, "Cliente no seleccionado");
+             }else {
+                 
+                  Connection conexion = Conexion.obtener();
+                 String consulta = "DELETE FROM formula WHERE puesto = ?; ";
+            PreparedStatement statement = conexion.prepareStatement(consulta);
+               statement.setInt(1, puesto);
+            statement.execute();
+            resultado = statement.getUpdateCount() == 1 ;
+            
+            JOptionPane.showMessageDialog(null, "Seguro que quieres borrarlo?");
+                        conexion.close();
+                 
+             }
+             
+             } catch(Exception ex){
+            System.err.println("Ocurrió un error: " + ex.getMessage());
+             }
+         
+    return resultado;
+
+
    
+   }
 
 
+    
+    
 
-    
-    
-    
-    
-    
-    
    
 
     public int getPuesto() {
@@ -174,18 +202,21 @@ public class Formula {
         this.tiempo = tiempo;
     }
 
-    public String getPuntos() {
+    public int getPuntos() {
         return puntos;
     }
 
-    public void setPuntos(String puntos) {
+    public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
+}
 
+  
   
     
     
     
     
-    
-}
+
+
+
