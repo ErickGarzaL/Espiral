@@ -155,6 +155,29 @@ public class Formula {
 
    
    }
+   
+   
+    public static  boolean buscar ( String piloto){
+        boolean resultado = false;
+        try {
+            Connection conexion = Conexion.obtener();
+            String consulta = "SELECT * FROM  formula WHERE piloto = ?  ";
+             PreparedStatement statement = conexion.prepareStatement(consulta);
+            statement.setString(1, piloto);
+            
+         
+            statement.execute();
+            resultado = statement.getUpdateCount() == 1 ;
+                        conexion.close();
+                    
+            
+             } catch(Exception ex){
+            System.err.println("Ocurrió un error: " + ex.getMessage());
+        }
+        return resultado;
+        }
+   
+   
 
 
     
