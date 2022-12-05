@@ -104,14 +104,16 @@ public class Formula {
         boolean resultado = false;
         try {
             Connection conexion = Conexion.obtener();
-            String consulta = "UPDATE fomula SET piloto = ?, equipo = ?, llantas =?, tiempo = ?, puntos = ? WHERE puesto = ? ";
+            String consulta = "UPDATE formula SET piloto = ?, equipo = ?, llantas =?, tiempo = ?, puntos = ? WHERE puesto = ? ";
              PreparedStatement statement = conexion.prepareStatement(consulta);
+         
             statement.setString(1, piloto);
             statement.setString(2, equipo);
             statement.setString(3, llantas);
             statement.setString(4, tiempo);
-             statement.setInt(5, puntos);
-             statement.setInt(6, puesto);
+            statement.setInt(5, puntos);
+            statement.setInt(6, puesto);
+            
             statement.execute();
             resultado = statement.getUpdateCount() == 1 ;
                         conexion.close();
@@ -134,8 +136,8 @@ public class Formula {
                  JOptionPane.showMessageDialog(null, "Cliente no seleccionado");
              }else {
                  
-                  Connection conexion = Conexion.obtener();
-                 String consulta = "DELETE FROM formula WHERE puesto = ?; ";
+            Connection conexion = Conexion.obtener();
+            String consulta = "DELETE FROM formula WHERE puesto = ?; ";
             PreparedStatement statement = conexion.prepareStatement(consulta);
                statement.setInt(1, puesto);
             statement.execute();
@@ -157,25 +159,7 @@ public class Formula {
    }
    
    
-    public static  boolean buscar ( String piloto){
-        boolean resultado = false;
-        try {
-            Connection conexion = Conexion.obtener();
-            String consulta = "SELECT * FROM  formula WHERE piloto = ?  ";
-             PreparedStatement statement = conexion.prepareStatement(consulta);
-            statement.setString(1, piloto);
-            
-         
-            statement.execute();
-            resultado = statement.getUpdateCount() == 1 ;
-                        conexion.close();
-                    
-            
-             } catch(Exception ex){
-            System.err.println("Ocurrió un error: " + ex.getMessage());
-        }
-        return resultado;
-        }
+   
    
    
 

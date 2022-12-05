@@ -5,12 +5,18 @@
  */
 package mx.itson.espiral.ui;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.itson.espiral.entidades.Formula;
+
+import javax.swing.table.TableRowSorter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.RowFilter;
+
+
+
+
 
 
 /**
@@ -24,7 +30,20 @@ public class Posicion extends javax.swing.JFrame {
      */
     public Posicion() {
         initComponents();
+        txtBuscar.addKeyListener(new KeyAdapter (){
+            @Override
+            public void keyReleased (final KeyEvent e){
+                String cadena  = (txtBuscar.getText());
+                txtBuscar.setText(cadena);
+                repaint();
+                filtro();
+                
+            }
+        });
+                
     }
+
+                
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,9 +57,9 @@ public class Posicion extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPuestos = new javax.swing.JTable();
         txtBuscar = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPuntos = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnAgregar = new javax.swing.JMenuItem();
@@ -72,11 +91,9 @@ public class Posicion extends javax.swing.JFrame {
                 txtBuscarActionPerformed(evt);
             }
         });
-
-        btnBuscar.setText("Buscar...");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -89,6 +106,8 @@ public class Posicion extends javax.swing.JFrame {
             }
         ));
         jScrollPane2.setViewportView(tblPuntos);
+
+        jLabel1.setText("Buscar piloto:");
 
         jMenu1.setText("Opciones de F1");
 
@@ -131,14 +150,14 @@ public class Posicion extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnBuscar)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(22, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,17 +169,16 @@ public class Posicion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addGap(56, 56, 56))
+                    .addComponent(jLabel1))
+                .addGap(64, 64, 64))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        int renglon =  tblPuestos.getSelectedRow();
+      int renglon =  tblPuestos.getSelectedRow();
      int  puestoCorredor= Integer.parseInt(tblPuestos.getModel().getValueAt(renglon, 0).toString());
-        
         PosicionForm posicionFormulario = new PosicionForm(this, true , puestoCorredor);
         posicionFormulario.setVisible(true);
            cargarTable();
@@ -175,6 +193,7 @@ public class Posicion extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
          cargarTable();
+         
         
          
          
@@ -242,18 +261,25 @@ public class Posicion extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-      Formula formula = new Formula ();
-   int renglon = tblPuestos.getSelectedRow();
-   formula.buscar(txtBuscar.getText());
-   
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
       
 
    cargarTable();
     }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+      trsfiltro = new TableRowSorter(tblPuestos.getModel());
+      tblPuestos.setRowSorter(trsfiltro);
+    }//GEN-LAST:event_txtBuscarKeyTyped
+public void filtro(){
+    filtro = txtBuscar.getText();
+    trsfiltro.setRowFilter(RowFilter.regexFilter(txtBuscar.getText(), 2));
+    
+    
+}
+
+private TableRowSorter trsfiltro;
+String filtro;
 
     /**
      * @param args the command line arguments
@@ -305,9 +331,9 @@ public class Posicion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAgregar;
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JMenuItem btnEditar;
     private javax.swing.JMenuItem btnEliminar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
