@@ -64,25 +64,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jScrollPane2" min="-2" pref="588" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jScrollPane1" min="-2" pref="588" max="-2" attributes="0"/>
-                      <EmptySpace pref="22" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-          </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="txtBuscar" min="-2" pref="259" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" pref="588" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="191" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,9 +86,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="166" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="46" max="-2" attributes="0"/>
-              <EmptySpace pref="88" max="32767" attributes="0"/>
+              <EmptySpace pref="129" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -115,12 +110,12 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="6" rowCount="4">
-                <Column editable="true" title="puesto" type="java.lang.Object"/>
-                <Column editable="true" title="piloto" type="java.lang.Object"/>
-                <Column editable="true" title="equipo" type="java.lang.Object"/>
-                <Column editable="true" title="llantas" type="java.lang.Object"/>
-                <Column editable="true" title="tiempo" type="java.lang.Object"/>
-                <Column editable="true" title="puntos" type="java.lang.Object"/>
+                <Column editable="true" title="Puesto" type="java.lang.Object"/>
+                <Column editable="true" title="Piloto" type="java.lang.Object"/>
+                <Column editable="true" title="Equipo" type="java.lang.Object"/>
+                <Column editable="true" title="Llantas" type="java.lang.Object"/>
+                <Column editable="true" title="Tiempo" type="java.lang.Object"/>
+                <Column editable="true" title="Puntos" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
