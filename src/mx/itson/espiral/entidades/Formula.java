@@ -9,6 +9,10 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+/**
+ * Clase la cual tiene atributos.
+ * @author Erick Garza y Emmnuel Rivas
+ */
 
 public class Formula {
     
@@ -19,6 +23,10 @@ public class Formula {
     private String tiempo ;
      private int puntos ;
 
+     /**
+      * 
+      * @return Obitnee todos los elementos de la tabla.
+      */
    
     public static List<Formula> obtenerTodos() {
         List<Formula> formulas = new ArrayList<>();
@@ -48,7 +56,11 @@ public class Formula {
         return formulas;
     }
     
-    
+    /**
+     * 
+     * @param puesto
+     * @return Indica si se obtuvo el registro.
+     */
     public static Formula obtenerPorpuesto(int puesto){
         
         Formula formula = new Formula();
@@ -77,6 +89,17 @@ public class Formula {
         
     }
     
+    /**
+     * 
+     * @param piloto 
+     * @param puntos 
+     * @param llantas 
+     * @param tiempo 
+     * @param equipo 
+     * @return Indica si se guardó o no el registro.
+     */
+    
+    
     
      public static boolean guardar( String piloto, String equipo, String llantas, String tiempo, int puntos){
         boolean resultado = false;
@@ -99,7 +122,16 @@ public class Formula {
         return resultado;
     }
      
-     
+     /**
+      * 
+      * @param puesto
+      * @param piloto
+      * @param equipo
+      * @param llantas
+      * @param tiempo
+      * @param puntos
+      * @return Indica si se edito o no el registro.
+      */
     public static  boolean editar (int puesto, String piloto, String equipo, String llantas, String tiempo, int puntos){
         boolean resultado = false;
         try {
@@ -124,7 +156,11 @@ public class Formula {
         }
         return resultado;
         }
-    
+    /**
+     * 
+     * @param puesto
+     * @return Indica si se elimino o no el registro.
+     */
    public static boolean eliminar (int puesto){
         boolean resultado = false;
         
@@ -164,59 +200,99 @@ public class Formula {
    }
    
    
-   
-   
-   
-
-
-    
-    
-
-   
+   /**
+    * El getPuesto obtiene los valores que se atribuyen.
+    * @return Un atributo 
+    */
 
     public int getPuesto() {
         return puesto;
     }
+    /**
+     * Recibe un valor por parámetro y lo asigna en la variable
+     * @param puesto 
+     */
 
     public void setPuesto(int puesto) {
         this.puesto = puesto;
     }
+    /**
+     * Su función es permitir el obtener el valor de una propiedad de la clase 
+     * @return Un atributo el cual se le asigna
+     */
 
     public String getPiloto() {
         return piloto;
     }
+    /**
+     * Su función permite brindar acceso a propiedades especificas para poder asignar un valor fuera de la clase.
+     * @param piloto 
+     */
 
     public void setPiloto(String piloto) {
         this.piloto = piloto;
     }
+    /**
+     * Obtiene los valores que se atribuyen
+     * @return Un atributo 
+     */
 
     public String getEquipo() {
         return equipo;
     }
+    /**
+     * Su función permite brindar acceso a propiedades especificas
+     * @param equipo 
+     */
 
     public void setEquipo(String equipo) {
         this.equipo = equipo;
     }
+    /**
+     * Su función es permitir el obtener el valor de una propiedad de la clase.
+     * @return 
+     */
 
     public String getLlantas() {
         return llantas;
     }
+    /**
+     * Su función permite brindar acceso a propiedades especificas para poder asignar un valor fuera de la clase.
+     * @param llantas 
+     */
 
     public void setLlantas(String llantas) {
         this.llantas = llantas;
     }
+    /**
+     * Obitene los valores de la tabla de variable tiempo.
+     * @return 
+     */
 
     public String getTiempo() {
         return tiempo;
+        
     }
+    /**
+     * Su función es permitir el obtener el valor de una propiedad de la clase.
+     * @param tiempo 
+     */
 
     public void setTiempo(String tiempo) {
         this.tiempo = tiempo;
     }
+    /**
+     * Para acceder al valor del atributo.
+     * @return 
+     */
 
     public int getPuntos() {
         return puntos;
     }
+    /**
+     * para actualizar el valor del atributo.
+     * @param puntos 
+     */
 
     public void setPuntos(int puntos) {
         this.puntos = puntos;

@@ -207,7 +207,7 @@ public class Posicion extends javax.swing.JFrame {
        
        modelo.setRowCount(0);
        
-       int suma =0;
+       int suma = 0;
        
        
        for(Formula a : formulas){
@@ -251,9 +251,7 @@ public class Posicion extends javax.swing.JFrame {
    int renglon = tblPuestos.getSelectedRow();
    int carrera = Integer.parseInt( tblPuestos.getModel().getValueAt(renglon, 0).toString());
    formula.eliminar(carrera);
-     
-          
-       cargarTable();
+  cargarTable();
         
         
     }//GEN-LAST:event_btnEliminarActionPerformed

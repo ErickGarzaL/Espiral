@@ -8,8 +8,8 @@ import javax.swing.JOptionPane;
 import mx.itson.espiral.entidades.Formula;
 
 /**
- *
- * @author franc
+ *Clase la cual dice la posicion y los datos.
+ * @author Erick Garza y Emmanuel Rivas
  */
 public class PosicionForm extends javax.swing.JDialog {
   int puesto;

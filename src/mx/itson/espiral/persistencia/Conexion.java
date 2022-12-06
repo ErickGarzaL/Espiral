@@ -2,7 +2,10 @@
 package mx.itson.espiral.persistencia;
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+/**
+ * Obtiene la conexion de NetBeans a mysql.
+ * @author Erick Garza y Emmanuel Rivas
+ */
 public class Conexion {
 
 
