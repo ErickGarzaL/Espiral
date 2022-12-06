@@ -143,7 +143,12 @@ public class Formula {
             statement.execute();
             resultado = statement.getUpdateCount() == 1 ;
             
-            JOptionPane.showMessageDialog(null, "Seguro que quieres borrarlo?");
+          int i =  JOptionPane.showConfirmDialog(null, "Seguro que quieres borrarlo?");
+          
+          if (i ==0 ){
+              JOptionPane.showMessageDialog(null, "Se borrado exitosamente");
+         
+          }
                         conexion.close();
                  
              }
