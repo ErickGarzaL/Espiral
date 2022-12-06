@@ -21,14 +21,14 @@ import javax.swing.RowFilter;
 
 /**
  *
- * @author franc
+ * @author Erick Garza y Emmanuel Rivas
  */
-public class Posicion extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame {
 
     /**
      * Creates new form Posicion
      */
-    public Posicion() {
+    public Main() {
         initComponents();
         txtBuscar.addKeyListener(new KeyAdapter (){
             @Override
@@ -190,6 +190,7 @@ public class Posicion extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
          cargarTable();
+         tblPuestos.removeColumn(tblPuestos.getColumn(0));
          
         
          
@@ -235,14 +236,6 @@ public class Posicion extends javax.swing.JFrame {
            });
        }
         
-      
-
-        
-       
-       
-       
-          
-
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -293,20 +286,21 @@ String filtro;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Posicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Posicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Posicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Posicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Posicion().setVisible(true);
+                new Main().setVisible(true);
             }
         });
     }
