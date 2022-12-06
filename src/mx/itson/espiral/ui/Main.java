@@ -261,7 +261,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarKeyTyped
 public void filtro(){
     filtro = txtBuscar.getText();
-    trsfiltro.setRowFilter(RowFilter.regexFilter(txtBuscar.getText(), 2));
+    trsfiltro.setRowFilter(RowFilter.regexFilter(txtBuscar.getText(), 1));
     
     
 }

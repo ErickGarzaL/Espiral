@@ -25,7 +25,7 @@ public class Formula {
 
      /**
       * 
-      * @return Obitnee todos los elementos de la tabla.
+      * @return Obtiene todos los elementos de la tabla.
       */
    
     public static List<Formula> obtenerTodos() {
